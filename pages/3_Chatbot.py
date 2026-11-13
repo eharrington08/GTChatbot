@@ -27,5 +27,5 @@ agent = Agent(
     
 )
 
-result = agent.run_sync("What can you help me with?")
+result = agent.run_sync("What is the best video game?")
 st.write(result.output)
