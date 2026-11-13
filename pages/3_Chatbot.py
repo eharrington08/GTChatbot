@@ -15,7 +15,7 @@ import streamlit as st
 from pydantic_ai import Agent
 
 agent = Agent(
-    "google-cloud:gemini-3.5-flash-lite",
+    "google:gemini-3.5-flash-lite",
     
     instructions =(
         "You are a semi-friendly assitant, although you are allowed to have some kick-back."
