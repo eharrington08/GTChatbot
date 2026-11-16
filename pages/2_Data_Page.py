@@ -35,6 +35,8 @@ with tab1:
     st.write(f"Publisher: {singleGameResponse.json()['publisher']}")
     st.write(f"Developer: {singleGameResponse.json()['developer']}")
     st.write(f"Release Date: {singleGameResponse.json()['release_date']}")
-    if {singleGameResponse.json()['minimum_system_requirements']}:
+    try:
         st.write(f"Minimum System Requirements: {singleGameResponse.json()['minimum_system_requirements']}")  
+    except:
+        st.write("There are no published minimum game requirements.")
     
