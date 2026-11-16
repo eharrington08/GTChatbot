@@ -24,7 +24,7 @@ with tab1:
     for game in baseResponse.json():
         gameName = game["title"]
         gameNameList.append(gameName)
-    st.selectbox("Select a game", gameNameList, key="gameSelect")
+    st.selectbox("Select a game", sorted(gameNameList), key="gameSelect")
     gameID = baseResponse.json()[gameNameList.index(st.session_state.gameSelect)]["id"]
     singleGameResponse = requests.get(f"{baseURL}/game?id={gameID}")
     st.header(singleGameResponse.json()["title"])
