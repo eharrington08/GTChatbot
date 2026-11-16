@@ -30,8 +30,7 @@ with tab1:
             genreByDevDictionary[game["developer"]][game["genre"]] += 1
             releaseDateDictionary[game["developer"]].append(game["release_date"])
         except:
-            genreByDevDictionary[game["developer"]] = {}
-            genreByDevDictionary[game["developer"]][game["genre"]] = 1
+            genreByDevDictionary[game["developer"]] = [[game["genre"]], 1]
             releaseDateDictionary[game["developer"]] = [game["release_date"]]
                    
     # st.selectbox("Select a game", sorted(gameNameList), key="gameSelect")
