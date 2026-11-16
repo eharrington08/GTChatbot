@@ -25,11 +25,17 @@ with tab1:
     baseResponse = requests.get(f"{baseURL}/games")
     for game in baseResponse.json():
         gameName = game["title"]
-        gameNameList.append(gameName)
+        developer = game["developer"]
+        genre = game["genre"]
+
+        if developer not in genreByDevDictionary:
+            genreByDevDictionary[developer] = {}
+
+        if genre not in genreByDevDictionary[developer]:
+            genreByDevDictionary[developer][genre] = 0
+
+        genreByDevDictionary[developer][genre] += 1
        
-           
-            # genreByDevDictionary[game["developer"]] = [[game["genre"]], 1]
-            # releaseDateDictionary[game["developer"]] = [game["release_date"]]
                    
     # st.selectbox("Select a game", sorted(gameNameList), key="gameSelect")
     # gameID = baseResponse.json()[gameNameList.index(st.session_state.gameSelect)]["id"]
