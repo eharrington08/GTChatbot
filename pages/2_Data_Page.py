@@ -26,12 +26,10 @@ with tab1:
     for game in baseResponse.json():
         gameName = game["title"]
         gameNameList.append(gameName)
-        try:
-            genreByDevDictionary[game["developer"]][game["genre"]] += 1
-            releaseDateDictionary[game["developer"]].append(game["release_date"])
-        except:
-            genreByDevDictionary[game["developer"]] = [[game["genre"]], 1]
-            releaseDateDictionary[game["developer"]] = [game["release_date"]]
+       
+           
+            # genreByDevDictionary[game["developer"]] = [[game["genre"]], 1]
+            # releaseDateDictionary[game["developer"]] = [game["release_date"]]
                    
     # st.selectbox("Select a game", sorted(gameNameList), key="gameSelect")
     # gameID = baseResponse.json()[gameNameList.index(st.session_state.gameSelect)]["id"]
