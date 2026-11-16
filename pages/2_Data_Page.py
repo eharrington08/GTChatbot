@@ -14,5 +14,9 @@ import streamlit as st
 baseURL = "https://www.freetogame.com/api"
 gameID = 0
 
+# st.title("Free-to-Play Game Data")
 
+tab1, tab2 = st.tabs(["Game Info", "Graphs"])
 
+with tab1:
+    st.header("Game Info")  
