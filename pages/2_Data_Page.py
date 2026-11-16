@@ -35,5 +35,6 @@ with tab1:
     st.write(f"Publisher: {singleGameResponse.json()['publisher']}")
     st.write(f"Developer: {singleGameResponse.json()['developer']}")
     st.write(f"Release Date: {singleGameResponse.json()['release_date']}")
-    st.write(f"Minimum System Requirements: {singleGameResponse.json()['minimum_system_requirements']}")  
+    if {singleGameResponse.json()['minimum_system_requirements']}:
+        st.write(f"Minimum System Requirements: {singleGameResponse.json()['minimum_system_requirements']}")  
     
