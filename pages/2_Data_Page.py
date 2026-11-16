@@ -11,4 +11,8 @@
 import requests
 import streamlit as st
 
+baseURL = "https://www.freetogame.com/api"
+gameID = 0
+
+
 
