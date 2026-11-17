@@ -155,14 +155,15 @@ with tab2:
             for genre, count in genreByDevDictionary[developer].items():
                 if genre in selectedGenres:
                     genreData.append({
-                        # if count == 1:
-                        #     developer = "Other"
-                        "Developer": developer,
+                        "Developer": "Other" if count == 1 else developer,
                         "Genre": genre,
                         "Count": count
                     })
 
         genreDF = pd.DataFrame(genreData)
+        genreDF = genreDF.groupby(
+            ["Developer", "Genre"], as_index=False
+        )["Count"].sum()
 
         chart = alt.Chart(genreDF).mark_bar().encode(
             x=alt.X("Genre:N", title="Genre"),
