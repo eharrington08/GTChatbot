@@ -159,6 +159,7 @@ with tab2:
                         "Genre": genre,
                         "Count": count
                     })
+        st.write(f"**Note**: Developers with only one game in the selected genres are grouped under 'Other'.")
 
         genreDF = pd.DataFrame(genreData)
         
