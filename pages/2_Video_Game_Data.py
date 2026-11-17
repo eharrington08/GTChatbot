@@ -162,16 +162,23 @@ with tab2:
 
         genreDF = pd.DataFrame(genreData)
         
-        # genreDF = genreDF.groupby(
-        #     ["Developer", "Genre"], as_index=False
-        # )["Count"].sum()
+        genreDF = genreDF.groupby(
+            ["Developer", "Genre"], as_index=False
+        )["Count"].sum()
+
+        developerOrder = sorted(
+            genreDF["Developer"].unique(),
+            key=lambda developer: (developer == "Other", developer)
+        )
 
         chart = alt.Chart(genreDF).mark_bar().encode(
             x=alt.X("Genre:N", title="Genre"),
             y=alt.Y("Count:Q", title="Number of Games"),
             color=alt.Color(
                 "Developer:N",
-                title="Developer"
+                title="Developer",
+                sort=developerOrder,
+                legend=alt.Legend(orient="bottom")
             ),
             tooltip=["Developer", "Genre", "Count"]
         ).properties(
