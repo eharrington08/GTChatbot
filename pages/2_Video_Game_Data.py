@@ -155,8 +155,8 @@ with tab2:
             for genre, count in genreByDevDictionary[developer].items():
                 if genre in selectedGenres:
                     genreData.append({
-                        if count == 1:
-                            developer = "Other"
+                        # if count == 1:
+                        #     developer = "Other"
                         "Developer": developer,
                         "Genre": genre,
                         "Count": count
