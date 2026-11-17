@@ -166,12 +166,20 @@ with tab2:
             ["Developer", "Genre"], as_index=False
         )["Count"].sum()
 
-        developerOrder = sorted([
+        developerTotals = genreDF.groupby(
+            "Developer", as_index=False
+        )["Count"].sum()
+        developerTotals = developerTotals.sort_values(
+            ["Count", "Developer"],
+            ascending=[False, True]
+        )
+
+        developerOrder = [
             developer
-            for developer in genreDF["Developer"].unique()
+            for developer in developerTotals["Developer"]
             if developer != "Other"
-        ])
-        if "Other" in genreDF["Developer"].values:
+        ]
+        if "Other" in developerTotals["Developer"].values:
             developerOrder.append("Other")
 
         chart = alt.Chart(genreDF).mark_bar().encode(
