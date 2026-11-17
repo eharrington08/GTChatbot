@@ -21,16 +21,21 @@ if "chat" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 st.title("Game Guru Chatbot!")
-prompt = st.chat_input("Ask Game Guru a question...")
-if prompt:
-    st.session_state.chat.append(("user", prompt))
-    try:
-        result = agent.run_sync(prompt, message_history=st.session_state.history)
-        st.session_state.chat.append(("assistant", result.output))
-        st.session_state.history = result.all_messages()
-    except Exception as e:
-        st.session_state.chat.append(("assistant","Something unexpected happened. Please try again."))
-    prompt = ""
 for bubble in st.session_state.chat:
     with st.chat_message(bubble[0]):
         st.write(bubble[1])
+prompt = st.chat_input("Ask Game Guru a question...")
+if prompt:
+    st.session_state.chat.append(("user", prompt))
+    with st.chat_message("user"):
+        st.write(prompt)
+    with st.spinner("Thinking..."):
+        try:
+            result = agent.run_sync(prompt, message_history=st.session_state.history)
+            st.session_state.chat.append(("assistant", result.output))
+            st.session_state.history = result.all_messages()
+            with st.chat_message("assistant"):
+                st.write(result.output)
+        except Exception as e:
+            st.session_state.chat.append(("assistant","Something unexpected happened. Please try again."))
+    prompt = ""
