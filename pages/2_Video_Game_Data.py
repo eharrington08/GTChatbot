@@ -166,30 +166,12 @@ with tab2:
             ["Developer", "Genre"], as_index=False
         )["Count"].sum()
 
-        developerTotals = genreDF.groupby(
-            "Developer", as_index=False
-        )["Count"].sum()
-        developerTotals = developerTotals.sort_values(
-            ["Count", "Developer"],
-            ascending=[True, False]
-        )
-
-        developerOrder = [
-            developer
-            for developer in developerTotals["Developer"]
-            if developer != "Other"
-        ]
-        if "Other" in developerTotals["Developer"].values:
-            developerOrder.append("Other")
-
         chart = alt.Chart(genreDF).mark_bar().encode(
             x=alt.X("Genre:N", title="Genre"),
             y=alt.Y("Count:Q", title="Number of Games"),
             color=alt.Color(
                 "Developer:N",
-                title="Developer",
-                sort=developerOrder,
-                legend=alt.Legend(orient="bottom")
+                title="Developer"
             ),
             tooltip=["Developer", "Genre", "Count"]
         ).properties(
