@@ -166,10 +166,13 @@ with tab2:
             ["Developer", "Genre"], as_index=False
         )["Count"].sum()
 
-        developerOrder = sorted(
-            genreDF["Developer"].unique(),
-            key=lambda developer: (developer == "Other", developer)
-        )
+        developerOrder = sorted([
+            developer
+            for developer in genreDF["Developer"].unique()
+            if developer != "Other"
+        ])
+        if "Other" in genreDF["Developer"].values:
+            developerOrder.append("Other")
 
         chart = alt.Chart(genreDF).mark_bar().encode(
             x=alt.X("Genre:N", title="Genre"),
