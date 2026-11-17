@@ -171,7 +171,7 @@ with tab2:
         )["Count"].sum()
         developerTotals = developerTotals.sort_values(
             ["Count", "Developer"],
-            ascending=[False, True]
+            ascending=[True, False]
         )
 
         developerOrder = [
