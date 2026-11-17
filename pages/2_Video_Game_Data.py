@@ -68,7 +68,7 @@ with tab1:
         
 with tab2:
     st.header("Graphs")
-
+    st.subheader("Number of Games Released by Each Developer Over Time")
     for game in baseResponse.json():
         gameName = game["title"]
         developer = game["developer"]
@@ -92,7 +92,7 @@ with tab2:
         sorted(releaseDateDictionary.keys()),
         key="developerSelect"
     )
-    st.subheader("Number of Games Released by Each Developer Over Time")
+    
 
     selectedDevelopers = st.session_state.developerSelect
 
