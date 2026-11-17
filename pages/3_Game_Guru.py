@@ -37,5 +37,8 @@ if prompt:
             with st.chat_message("assistant"):
                 st.write(result.output)
         except Exception as e:
-            st.session_state.chat.append(("assistant","Something unexpected happened. Please try again."))
+            error = ("assistant","Something unexpected happened. Please try again.")
+            st.session_state.chat.append(error)
+            with st.chat_message(error[0]):
+                st.write(error[1])
     prompt = ""
