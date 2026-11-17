@@ -3,3 +3,7 @@
 # (Streamlit itself is installed automatically.)
 requests
 pydantic-ai
+pandas 
+plotly
+plotly.express
+altair
