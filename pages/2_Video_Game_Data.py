@@ -161,9 +161,10 @@ with tab2:
                     })
 
         genreDF = pd.DataFrame(genreData)
-        genreDF = genreDF.groupby(
-            ["Developer", "Genre"], as_index=False
-        )["Count"].sum()
+        
+        # genreDF = genreDF.groupby(
+        #     ["Developer", "Genre"], as_index=False
+        # )["Count"].sum()
 
         chart = alt.Chart(genreDF).mark_bar().encode(
             x=alt.X("Genre:N", title="Genre"),
