@@ -19,6 +19,7 @@ gameID = 0
 gameNameList = []
 genreByDevDictionary = {}
 releaseDateDictionary = {}
+label = ""
 # st.title("Free-to-Play Game Data")
 
 tab1, tab2 = st.tabs(["Game Info", "Graphs"])
@@ -33,20 +34,38 @@ with tab1:
     
     gameID = baseResponse.json()[gameNameList.index(st.session_state.gameSelect)]["id"]
     singleGameResponse = requests.get(f"{baseURL}/game?id={gameID}")
-    
-    st.header(singleGameResponse.json()["title"])
-    st.image(singleGameResponse.json()["thumbnail"])
-    st.write(singleGameResponse.json()["short_description"])
-    st.write(f"Genre: {singleGameResponse.json()['genre']}")
-    st.write(f"Platform: {singleGameResponse.json()['platform']}")
-    st.write(f"Publisher: {singleGameResponse.json()['publisher']}")
-    st.write(f"Developer: {singleGameResponse.json()['developer']}")
-    st.write(f"Release Date: {singleGameResponse.json()['release_date']}")
+    game = singleGameResponse.json()
+    st.header(game["title"])
+    st.image(game["thumbnail"])
+    st.write(game["short_description"])
+    st.write(f"**Genre**: {game['genre']}")
+    st.write(f"**Platform**: {game['platform']}")
+    st.write(f"**Publisher**: {game['publisher']}")
+    st.write(f"**Developer**: {game['developer']}")
+    st.write(f"**Release Date**: {game['release_date']}")
     try:
-        st.write(f"Minimum System Requirements: {singleGameResponse.json()['minimum_system_requirements']}")  
+        st.markdown("<u>**Minimum System Requirements**:</u>", unsafe_allow_html=True)
+        for specType, spec in game['minimum_system_requirements'].items():
+            st.write(f"**{specType}**: {spec}")
     except:
         st.write("There are no published minimum game requirements.")
     
+    if "showAll" not in st.session_state:
+        st.session_state.showAll = -1
+
+    def toggle():
+       st.session_state.showAll *= -1
+    if st.session_state.showAll == 1:
+        label = "Hide Extra Data"
+    else:
+        label = "Show Extra Data"
+    st.button(label, on_click=toggle)
+    if st.session_state.showAll == 1:
+        st.write(f"**Long Description**: {game['description']}")
+        st.write("**In-Game Screenshots**")
+        for image in game.get("screenshots", []):
+            st.image(image["image"])
+        
 with tab2:
     st.header("Graphs")
 
@@ -101,7 +120,7 @@ with tab2:
             "Developer"
         )["Count"].cumsum()
 
-        fig = px.line(
+        graph = px.line(
             releaseDateDF,
             x="Release Date",
             y="Count",
@@ -110,7 +129,7 @@ with tab2:
             title="Cumulative Number of Games Released by Each Developer"
         )
 
-        st.plotly_chart(fig)
+        st.plotly_chart(graph)
     
     # altair chart for genre distribution by developer
    # Altair chart for genre distribution by developer
