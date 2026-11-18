@@ -150,16 +150,30 @@ with tab2:
 
     if selectedGenres:
         genreData = []
+        genresWithRepeatDevelopers = {
+            genre
+            for developer in genreByDevDictionary
+            for genre, count in genreByDevDictionary[developer].items()
+            if genre in selectedGenres and count > 1
+        }
 
         for developer in genreByDevDictionary:
             for genre, count in genreByDevDictionary[developer].items():
                 if genre in selectedGenres:
                     genreData.append({
-                        "Developer": "Other" if count == 1 else developer,
+                        "Developer": (
+                            "Other"
+                            if genre in genresWithRepeatDevelopers and count == 1
+                            else developer
+                        ),
                         "Genre": genre,
                         "Count": count
                     })
-        st.write(f"**Note**: Developers with only one game in the selected genres are grouped under 'Other'.")
+        if genresWithRepeatDevelopers:
+            st.write(
+                "**Note**: Developers with only one game are grouped under "
+                "'Other' for genres that have developers with multiple games."
+            )
 
         genreDF = pd.DataFrame(genreData)
         
