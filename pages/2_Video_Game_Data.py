@@ -134,7 +134,7 @@ with tab2:
     # altair chart for genre distribution by developer
    # Altair chart for genre distribution by developer
     # Altair chart for genre distribution by developer
-    st.subheader("Genre Distribution by Developer")
+    st.subheader("Developer Distribution by Genre")
 
     allGenres = sorted({
         genre
@@ -190,7 +190,7 @@ with tab2:
             ),
             tooltip=["Developer", "Genre", "Count"]
         ).properties(
-            title="Number of Games by Developer for Selected Genres",
+            title="Number of Games per Genre by Developer",
             
         )
 
